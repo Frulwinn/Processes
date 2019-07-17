@@ -9,6 +9,21 @@
 int main(void)
 {
     // Your code here
-
+    int x = 100;
+    int rc = fork();
+    
+    if (rc < 0) {    // fork failed; exit
+        fprintf(stderr, "fork failed\n");
+        exit(1);
+    } else if (rc == 0) {    // child process satisfies this branch
+        printf("child process (pid: %d) \n", (int) getpid());
+        x = 75;
+        printf("x = %d\n", x);
+    } else {
+        printf("parent process (pid: %d) of child %d\n", (int) getpid(), rc);
+        x = 50;
+        printf("x = %d\n", x);
+    }
+    printf("finally x = %d\n", x);
     return 0;
 }
