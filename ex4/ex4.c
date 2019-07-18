@@ -10,7 +10,26 @@
 
 int main(void)
 {
-    // Your code here    
+    // Your code here 
+    int rc = fork();
+    int status;
 
-    return 0;
+    if (rc < 0) {    // fork failed; exit
+        fprintf(stderr, "fork failed\n");
+        exit(1);
+    } else if (rc == 0) {    // child process satisfies this branch
+        printf("Child process! \n");
+
+        //execl("/bin/ls", "ls", "-l", (char*)NULL);
+        //char *args[] = {"ls", "-l", NULL};
+        //execv("/lbin/ls", args);
+        //execlp("ls", "ls", "-l", (char*)NULL);
+
+        char *args[] = {"ls", "-l", NULL};
+        execvp("ls", args);
+    } else {
+        wait(NULL);
+        }
+    return 0;   
+
 }
