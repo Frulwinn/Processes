@@ -9,6 +9,23 @@
 int main(void)
 {
     // Your code here 
-    
+    FILE* fp;
+    fp = fopen("text.txt", "w");
+
+    int rc = fork();
+    if (rc < 0) {    // fork failed; exit
+        fprintf(stderr, "fork failed\n");
+        exit(1);
+    } else if (rc == 0) {    // child process satisfies this branch
+        printf("child process (pid: %d) \n", (int) getpid());
+        char child_str[] =  "This is a childstring! \n";
+        fwrite(child_str, 1, sizeof(child_str), fp);
+    } else {
+        printf("parent process (pid: %d) of child %d\n", (int) getpid(), rc);
+        char parent_str[] = "This is parent string! \n";
+        fwrite(parent_str, 1, sizeof(parent_str), fp);
+    }
+    fclose(fp);
     return 0;
+
 }

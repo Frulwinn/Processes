@@ -10,6 +10,7 @@ int main(void)
 {
     // Your code here
     int x = 100;
+    //rc return code
     int rc = fork();
     
     if (rc < 0) {    // fork failed; exit
